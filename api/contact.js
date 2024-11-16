@@ -1,25 +1,22 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
-const serverless = require('serverless-http');
 
 dotenv.config();
 const app = express();
-const port = process.env.PORT || 3000;
 
 // Enable CORS for all origins
 app.use(cors({ origin: '*' }));
 
 // Middleware
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Contact form route
 app.post('/api/contact', async (req, res) => {
   const { name, contact, email, service, message } = req.body;
 
-  console.log('Preparing to send email...');  // Log to check progress
+  console.log('Preparing to send email...');
 
   let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -46,14 +43,5 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
-
-// Default route
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Welcome to the GCA Backend API!'
-  });
-});
-
-app.listen(port , (req, res) =>{
-  console.log(`Server is running on port ${port}`);
-})
+// Export app for Vercel
+module.exports = app;
