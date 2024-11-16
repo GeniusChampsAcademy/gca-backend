@@ -28,7 +28,7 @@ app.post('/api/contact', async (req, res) => {
 
   let mailOptions = {
     from: `"${name}" <${email}>`,
-    to: 'rushikeshgbhand@gmail.com',
+    to: 'geniuschampsacademy@gmail.com',
     subject: 'New Contact Us Form Submission',
     text: `Name: ${name}\nContact Number: ${contact}\nEmail: ${email}\nService: ${service}\nMessage: ${message}`,
   };
